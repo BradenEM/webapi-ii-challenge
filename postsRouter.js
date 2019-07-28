@@ -22,6 +22,16 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+router.get("/:id/comments", async (req, res) => {
+  try {
+    const comments = await db.findPostComments(req.params.id);
+
+    res.status(200).json(comments);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
 router.post("/", async (req, res) => {
   try {
     const body = await db.insert(req.body);
