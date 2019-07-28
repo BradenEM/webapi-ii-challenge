@@ -12,6 +12,16 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/:id", async (req, res) => {
+  try {
+    const post = await db.findById(req.params.id);
+
+    res.status(200).json(post);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
 router.post("/", async (req, res) => {
   try {
     const body = await db.insert(req.body);
