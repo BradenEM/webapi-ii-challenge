@@ -41,19 +41,17 @@ router.post("/", async (req, res) => {
   }
 });
 
-// router.post("/:id/comments", async (req, res) => {
-//   const { text } = req.body;
-//   console.log(req.body);
-//   try {
-//     const comment = { text, post_id: req.params.id };
-//     const { id } = await db.insertComment(comment);
-//     const insertedComment = await db.findCommentById(id);
+router.post("/:id/comments", async (req, res) => {
+  const { text } = req.body;
+  const post_id = req.params.id;
+  try {
+    const comment = await db.insertComment({ text, post_id });
 
-//     res.status(201).json(insertedComment);
-//   } catch (error) {
-//     res.status(500).json(error);
-//   }
-// });
+    res.status(200).json(comment);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
 
 router.delete("/:id", async (req, res) => {
   try {
