@@ -41,4 +41,28 @@ router.post("/", async (req, res) => {
   }
 });
 
+// router.post("/:id/comments", async (req, res) => {
+//   const { text } = req.body;
+//   console.log(req.body);
+//   try {
+//     const comment = { text, post_id: req.params.id };
+//     const { id } = await db.insertComment(comment);
+//     const insertedComment = await db.findCommentById(id);
+
+//     res.status(201).json(insertedComment);
+//   } catch (error) {
+//     res.status(500).json(error);
+//   }
+// });
+
+router.delete("/:id", async (req, res) => {
+  try {
+    const post = await db.remove(req.params.id);
+
+    res.status(200).json(post);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
 module.exports = router;
